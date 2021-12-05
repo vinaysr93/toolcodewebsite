@@ -5,15 +5,18 @@
     <title>Login Page</title>
 </head>
 <body>
-      <form method="GET" >
+      <form method="POST" >
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email"><br><br>
-        <label for="email">Password:</label><br>
+        <label for="pwd">Password:</label><br>
         <input type="password" id="pwd" name="pwd">
         <br><br>
+          {% if message %}
+            <p>{{message}}</p>
+          {% endif %}
         <input type="submit" value="Submit">
-        <p><a href="./register.html">New User Register Here </a></p>
+        <p><a href= "{{url_for('register')}}">New User Register Here </a></p>
 
       </form>
 </body>
-</htm
+</html>

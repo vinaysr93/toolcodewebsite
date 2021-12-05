@@ -22,4 +22,8 @@ class final_list(db.Model):
     srnumf=db.Column('SrNumber',db.Integer,autoincrement=True,primary_key=True)
     sk=db.Column('SK',db.Integer)
 
-
+class User(db.Model):
+    __table__name="user"
+    userid=db.Column("UserID",db.Integer,autoincrement=True,primary_key=True)
+    useremail=db.Column("UserEmail",db.String)
+    userpass=db.Column("Password",db.String)

@@ -5,10 +5,21 @@
     <title>Registration</title>
 </head>
 <body>
-      <form action="" method="POST">
+      <form method="POST">
       <p> New Users should register here</p>
       <label for="email">Email:</label><br>
-      <a href="./login.html">Login</a>
+        <input type="email" id="email" name="email"><br>
+          <br>
+        <label for="pwd">Password:</label><br>
+        <input type="password" id="pwd" name="pwd">
+          <br>
+        <label for="pwd2">Confirm Password:</label><br>
+        <input type="password" id="pwd2" name="pwd2">
+        {% if message %}
+          <p>{{message}}</p>
+        {% endif %}
+          <br><br>
+          <input type="submit" value="Register">
       </form>
 </body>
 </html>
