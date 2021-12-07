@@ -2,73 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Title</title>
 </head>
 <body>
 
-      <p>Dashboard will be here</p>
-        <h1> Please input the requirements</h1>
-        <table>
-            <tr><h2>
-                <td>SrNumber</td>
-                <td>SK</td>
-                <td>ToolType</td>
-                <td>Height</td>
-                <td>Length</td>
-                <td>Quantity</td>
-                <td>Total Length</td></h2>
-            </tr>
+       <p>Here comes the dashboard</p>
 
+        {% if message %}
+            <p>{{message}}</p>
+        {% endif %}
 
-            <tr>
-                <td>{{loop.index}}</td>
-                <td>
-                <select name="SK" id="SK">
-                     <option value="11">11 </option>
-                     <option value="10">10 </option>
-
-
-                </select>
-                </td>
-                <td>
-                <select name="Punches" id="Punches">
-                     <option value="Standard">Standard</option>
-                     <option value="Sash">Sash</option>
-                     <option value="Gooseneck">Gooseneck</option>
-                     <option value="Straight">Straight</option>
-
-                </select>
-                </td>
-                <td><select name="height id="height">
-                    <option value="120">120</option>
-                    <option value="120">90</option>
-                    </select></td>
-                <td><select name="length" id="length">
-                     <option value="510">510</option>
-                     <option value="200">200</option>
-                     <option value="370">370</option>
-                     <option value="200">200 Ear</option>
-
-                </select></td>
-                <td><input id="quantity" type="text"  onkeyup="multiply()"></td>
-                <script>
-                   function multiply(){
-                    var x=document.getElementById("length").value;
-                    var y=document.getElementById("quantity").value;
-
-                    document.getElementById("total_quantity").value = x * y;
-                    }
-
-                </script>
-                <td><input type="text" id="total_quantity"></td>
-                <form action="" method="POST">
-                <td ahref="">Add</td>
-                <td>Update</td>
-                <td>Delete</td>
-                <td></td>
-                </form>
-            </tr>
-
-        </table>
+        <p> <a href="{{url_for('tool_individual')}}"> +Add </a></p>
 </body>
 </html>

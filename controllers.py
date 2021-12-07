@@ -1,69 +1,94 @@
-from flask import Flask
+from flask import Flask, url_for
 from flask import render_template, request, redirect
 from flask import current_app as app
-from models import Tool,Standard,User
+from models import Tool, Standard, User, End_list
 from database import db
 import requests
 
-@app.route("/register",methods=["GET","POST"])
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "GET":
+        return render_template("register.html", message='')
 
-
-    if request.method=="GET":
-
-        return render_template("register.html",message='')
-
-    if request.method=="POST":
-        email=request.form.get("email")
-        pwd=request.form.get("pwd")
-        pwd2=request.form.get("pwd2")
-        query_email=User.query.filter_by(useremail=email).all()
+    if request.method == "POST":
+        email = request.form.get("email")
+        pwd = request.form.get("pwd")
+        pwd2 = request.form.get("pwd2")
+        query_email = User.query.filter_by(useremail=email).all()
         if query_email:
 
             return render_template("register.html", message="Email already registered   ")
         else:
             if pwd == pwd2:  # Checks if the password is the same
-                user_entry = User(useremail=email,userpass=pwd)
+                user_entry = User(useremail=email, userpass=pwd)
                 db.session.add(user_entry)
                 db.session.commit()
-                return render_template("login.html",message='')
+                return render_template("login.html", message='')
             else:
                 return render_template("register.html", message="Password doesn't match")
 
+
 @app.route("/", methods=["GET", "POST"])
 def login():
+    if request.method == "GET":
+        return render_template("login.html", message='')
 
-    if request.method=="GET":
-        return render_template("login.html",message='')
+    if request.method == "POST":
 
-    if request.method=="POST":
-
-        email= request.form.get("email")
-        password= request.form.get("pwd")
-        data_email=User.query.filter_by(useremail=email).first()
-
-
+        email = request.form.get("email")
+        password = request.form.get("pwd")
+        data_email = User.query.filter_by(useremail=email).first()
 
         if data_email:
-            if data_email.useremail==email:
-                data_password=User.query.filter_by(useremail=email).first()
-                print(data_password.userpass)
-                if password==data_password.userpass:
+            if data_email.useremail == email:
+                data_password = User.query.filter_by(useremail=email).first()
+
+                if password == data_password.userpass:
                     return render_template("dashboard.html")
                 else:
 
-                    return render_template("login.html",message="Wrong Password")
+                    return render_template("login.html", message="Wrong Password")
             else:
 
-                return render_template("login.html",message="Email Doesn't exist")
+                return render_template("login.html", message="Email Doesn't exist")
         else:
 
-            return render_template("login.html",message="Email doesn't exists")
+            return render_template("login.html", message="Email doesn't exists")
 
-@app.route("/dashboard",methods=["GET","POST"])
+
+@app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
 
-    return render_template("dashboard.html")
+    if request.method=="POST" and "login" in request.form:
+
+        item = End_list.query.all()
+        if item==[]:
+
+             return render_template("dashboard.html",message='No tools are present Add them')
+
+        else:
+            return render_template("dashboard.html",message='None')
+
+    elif request.method=="POST" and "add" in request.form:
+
+        sk=request.form.get('SK')
+        punches=request.form.get('Punches')
+        height=request.form.get("height")
+        length=request.form.get("length")
+        quantity=request.form.get("quantity")
+        total_quanity=request.form.get("total_quantity")
+
+        print(sk,punches,height,length,quantity,total_quanity)
+
+@app.route("/tool_individual",methods=["GET","POST"])
+def tool_individual():
+    if request.method=="GET":
+        return render_template("tool_individual.html")
+
+    if request.method=="POST":
+        pass
+
 # @app.route("/dashboard/<user_name>", methods=["GET", "POST"])
 # def dashboard(user_name):
 #     user_id = User.query.filter_by(user_cred=user_name).first().user_id
