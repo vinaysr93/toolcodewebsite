@@ -12,15 +12,11 @@ class Standard(db.Model):
     __tablename__ = 'Standard'
     srnums = db.Column('SrNumber', db.Integer, autoincrement=True, primary_key=True)
     tool_type_code = db.Column('ToolTypeCode', db.Integer, db.ForeignKey("Tool.SrNumber"))
-    length = db.Column('Length', db.Integer, nullable=False)
+    length = db.Column('Length', db.String, nullable=False)
+    height = db.Column('Height', db.Integer)
     code = db.Column('Code', db.String, unique=True)
     description = db.Column('Description', db.String)
 
-
-class final_list(db.Model):
-    __table__name = "final_list"
-    srnumf = db.Column('SrNumber', db.Integer, autoincrement=True, primary_key=True)
-    sk = db.Column('SK', db.Integer)
 
 class User(db.Model):
     __table__name = "user"
@@ -33,6 +29,7 @@ class End_list(db.Model):
     __table__name = "end_list"
     srnuml = db.Column('SrNumber', db.Integer, autoincrement=True, primary_key=True)
     sk = db.Column('SK', db.Integer)
-    quantity = db.Column('Quantity', db.Integer)
-    length = db.Column('Length', db.Integer)
-    toolcode = db.Column('ToolCode', db.Integer)
+    quantity = db.Column('Quantity', db.Integer, nullable=False)
+    length = db.Column('Length', db.Integer, nullable=False)
+    toolcode = db.Column('ToolCode', db.String, nullable=False)
+    description = db.Column('Description', db.String)

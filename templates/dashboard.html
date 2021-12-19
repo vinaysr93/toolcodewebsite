@@ -3,15 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+        <h1>Dashboard</h1>
+       <form action="/dashboard" method="POST">
+       <table class="table table-bordered">
+           <thead>
+           <tr>
+           <td>SrNumber</td>
+           <td>SK</td>
+           <td>Quantity</td>
+           <td>Length</td>
+           <td>ToolCode</td>
+           <td>Description</td>
 
-       <p>Here comes the dashboard</p>
-
-        {% if message %}
+           </tr>
+           </thead>
+         {% if message%}
             <p>{{message}}</p>
-        {% endif %}
 
-        <p> <a href="{{url_for('tool_individual')}}"> +Add </a></p>
+         {% else %}
+            <tbody>
+           {% for k in item %}
+                    <tr>
+                    <td name="serial" value="{{k.srnuml}}">{{k.srnuml}}</td>
+
+                    <td>{{k.sk}}</td>
+                    <td>{{k.quantity}}</td>
+                    <td>{{k.length}}</td>
+                    <td>{{k.toolcode}}</td>
+                    <td>{{k.description}}</td>
+                    <td><a href="/delete/{{k.srnuml}}">&nbspDelete</td>
+                    <td><a href="/update/{{k.srnuml}}">&nbspUpdate</td>
+                    </tr>
+              {% endfor %}
+         {% endif %}
+
+            </tbody>
+       </table>
+
+
+
+
+        <p> <a href="{{url_for('tool_individual_punch')}}"> +Add Punch</a>
+         <a href="{{url_for('tool_individual_die')}}"> +Add Die</a> &nbsp
+               <a href="{{url_for('export_file')}}">Generate Excel</a></p>
+
+       </form>
+
 </body>
 </html>

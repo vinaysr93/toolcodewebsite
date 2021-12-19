@@ -1,10 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Update</title>
 </head>
 <body>
-$END$
+
+
+      <p>Updation will be done here</p>
+        <h1> Please input the requirements</h1>
+        <form action="/dashboard" method="POST">
+                     <p>SK &nbsp&nbsp<select name="SK" id="SK">
+                     <option value="11" {% if sk=="11" %} selected {% endif %}>11 </option>
+                     <option value="10" {% if sk=="10" %} selected {% endif %}>10 </option>
+                       </select>
+                     </p>
+                    <p> Punch Type &nbsp
+                <select name="Punches" id="Punches">
+                     <option value="Standard" {% if punch=="Standard" %} selected {% endif %}>Standard</option>
+                     <option value="Sash" {% if punch=="Sash" %} selected {% endif %}>Sash</option>
+                     <option value="Gooseneck" {% if punch=="Gooseneck" %} selected {% endif %}>Gooseneck</option>
+                     <option value="Straight" {% if punch=="Straight" %} selected {% endif %}>Straight</option>
+                     <option value="Acute" {% if punch=="Acute" %} selected {% endif %}>Acute</option>
+                </select>
+                   </p>
+
+                <p>Punch Height &nbsp
+                <select name="height" id="height">
+                    <option value="120" {% if height==120 %} selected {% endif %}>120</option>
+                    <option value="90" {% if height==90 %} selected {% endif %}>90</option>
+                    </select></p>
+
+
+                <p>Punch Length &nbsp<select name="length" id="length">
+                     <option value="510" {% if length==510 %} selected {% endif %}>510</option>
+                     <option value="200" {% if length==200 %} selected {% endif %}>200</option>
+                     <option value="370" {% if length==370 %} selected {% endif %}>370</option>
+                     <option value="200E" {% if length=="200E" %} selected {% endif %}>200 Ear</option>
+                </select></p>
+                <p>Quantity &nbsp<input name="quantity" id="quantity" type="text" default="1" onkeyup="multiply()"></p>
+                <script>
+                   function multiply(){
+                    var x=document.getElementById("length").value;
+                    var y=document.getElementById("quantity").value;
+
+                    document.getElementById("total_length").value = x * y;
+                    }
+
+                </script>
+                    <p>Total Length<input name="total_length" type="text" id="total_length"></p>
+                    <br><br>
+                    <input name="Update" type="submit" value="Update">
+
+
+
+        </form>
+
+
 </body>
 </html>
