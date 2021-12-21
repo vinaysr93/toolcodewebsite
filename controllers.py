@@ -1,4 +1,4 @@
-from flask import Flask, url_for,send_file
+from flask import Flask, url_for,send_from_directory,session
 from flask import render_template, request, redirect
 from flask import current_app as app
 from models import Tool, Standard, User, End_list
@@ -9,7 +9,7 @@ import csv
 import uuid
 
 numl=[]
-
+session= {}
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
@@ -194,16 +194,18 @@ def update(num):
         return render_template("update.html",sk=sk,punch=punch,height=query_height,length=length)
 
 
-@app.route("/export_file",methods=["GET","POST"])
-def export_file():
+@app.route("/exportfile",methods=["GET","POST"])
+def exportfile():
 
 
     if request.method=='GET':
 
         export_list=End_list.query.all()
         print(export_list)
-        filename = str(uuid.uuid4())
-        outfile = open(f'{filename}.csv', 'w',newline='')
+
+        fname = str(uuid.uuid4())
+        session['fname'] = fname
+        outfile = open(f'./csv_files/{fname}.csv', 'w',newline='')
         outcsv = csv.writer(outfile)
         outcsv.writerow(["Sr Number","SK","Quantity","Length","ToolCode","Description"])
         for x in export_list:
@@ -211,8 +213,21 @@ def export_file():
              outcsv.writerow([x.srnuml,x.sk,x.quantity,x.length,x.toolcode,x.description.strip()])
 
         outfile.close()
-        return url_for("dashboard")
 
+        return redirect(url_for("download"))
+
+@app.route("/download",methods=["GET","POST"])
+def download():
+
+    if request.method=="GET":
+        return render_template("download.html")
+
+    elif request.method=="POST":
+        print("Breaking here")
+        print(app.config["UPLOAD_FOLDER"])
+        if 'fname' in session:
+            csvFileName = session['fname']
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename=f'{csvFileName}.csv', as_attachment=True, cache_timeout=0)
 
 # @app.route("/dashboard/<user_name>", methods=["GET", "POST"])
 # def dashboard(user_name):

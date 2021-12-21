@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+
+
+        <h1> Please input the requirements</h1>
+        <form action="/dashboard" method="POST">
+                     <p>SK &nbsp&nbsp<select name="SK" id="SK">
+                     <option value="11">11 </option>
+                     <option value="10">10 </option>
+                       </select>
+                     </p>
+                    <p> Punch Type &nbsp
+                <select name="Punches" id="Punches">
+                     <option value="Standard">Standard</option>
+                     <option value="Sash">Sash</option>
+                     <option value="Gooseneck">Gooseneck</option>
+                     <option value="Straight">Straight</option>
+                     <option value="Acute">Acute</option>
+                </select>
+                   </p>
+
+                <p>Punch Height &nbsp
+                <select name="height" id="height">
+                    <option value="120">120</option>
+                    <option value="90">90</option>
+                    </select></p>
+
+
+                <p>Punch Length &nbsp<select name="length" id="length">
+                     <option value="510">510</option>
+                     <option value="200">200</option>
+                     <option value="370">370</option>
+                     <option value="200E">200 Ear</option>
+
+                </select></p>
+                <p>Quantity &nbsp<input name="quantity" id="quantity" type="text" default="1"  onkeyup="multiply()"></p>
+                <script>
+                   function multiply(){
+                    var x=document.getElementById("length").value;
+                    var y=document.getElementById("quantity").value;
+
+                    document.getElementById("total_length").value = x * y;
+                    }
+
+                </script>
+                    <p>Total Length &nbsp<input name="total_length" type="text" id="total_length"></p>
+                    <br><br>
+                    <input name="Add" type="submit" value="Add">
+
+
+
+        </form>
+
+
+</body>
+</html>
