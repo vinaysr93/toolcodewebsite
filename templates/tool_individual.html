@@ -3,10 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="./static/tool_individual.css">
+     <link rel="stylesheet" href="./static/tool_individual.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <style>
 
+        .height{
+            padding-left:0.2cm
+            }
+        .sk{
+            padding-left:1.95cm
+        }
+        .quantity
+        {
+             padding-left:1.0cm
+        }
+
+        .tlength{
+
+            padding-left:0.6cm
+
+        }
+        .ptype{
+        padding-left:.32cm
+        }
+
+        .plength{
+        padding-left:.18cm
+        }
+
+
+    </style>
 </head>
 <body>
 
@@ -14,36 +41,36 @@
 
         <h1> Please input the requirements</h1>
         <form action="/dashboard" method="POST">
-                     <p>SK &nbsp&nbsp<select name="SK" id="SK">
+                     <p>SK &nbsp&nbsp<span class= "sk" ><select name="SK" id="SK">
                      <option value="11">11 </option>
                      <option value="10">10 </option>
-                       </select>
+                     </select></span>
                      </p>
-                    <p> Punch Type &nbsp
+                    <p> Punch Type &nbsp  <span class="ptype">
                 <select name="Punches" id="Punches">
                      <option value="Standard">Standard</option>
                      <option value="Sash">Sash</option>
                      <option value="Gooseneck">Gooseneck</option>
                      <option value="Straight">Straight</option>
                      <option value="Acute">Acute</option>
-                </select>
+                </select></span>
                    </p>
 
-                <p>Punch Height &nbsp
+                <p>Punch Height   <span class= "height" >
                 <select name="height" id="height">
                     <option value="120">120</option>
                     <option value="90">90</option>
-                    </select></p>
+                </select></span></p>
 
 
-                <p>Punch Length &nbsp<select name="length" id="length">
+                <p>Punch Length <span class="plength"><select name="length" id="length">
                      <option value="510">510</option>
                      <option value="200">200</option>
                      <option value="370">370</option>
                      <option value="200E">200 Ear</option>
 
-                </select></p>
-                <p>Quantity &nbsp<input name="quantity" id="quantity" type="text" default="1"  onkeyup="multiply()"></p>
+                </select></span></p>
+                <p>Quantity &nbsp<span class="quantity"><input name="quantity" id="quantity" type="text" default="1"  onkeyup="multiply()"></p>
                 <script>
                    function multiply(){
                     var x=document.getElementById("length").value;
@@ -52,8 +79,8 @@
                     document.getElementById("total_length").value = x * y;
                     }
 
-                </script>
-                    <p>Total Length &nbsp<input name="total_length" type="text" id="total_length"></p>
+                </script></span>
+                    <p>Total Length<span class="tlength"><input name="total_length" type="text" id="total_length"></span></p>
                     <br><br>
                     <input name="Add" type="submit" value="Add">
 

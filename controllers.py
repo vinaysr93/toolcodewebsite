@@ -7,6 +7,7 @@ import requests
 import os,random
 import csv
 import uuid
+import pandas as pd
 
 numl=[]
 session= {}
@@ -74,6 +75,8 @@ def dashboard():
 
         else:
 
+            print(item)
+
             return render_template("dashboard.html",message='',item=item)
 
 
@@ -91,9 +94,10 @@ def dashboard():
         tcode = tool_type_c.srnum
 
         query_code = Standard.query.filter_by(height=height, length=length, tool_type_code=tcode).first()
+        image=query_code.simage
         catalog_code = query_code.code
         description=query_code.description
-        add_entry = End_list(sk=sk, quantity=quantity, length=length, toolcode=catalog_code,description=description)
+        add_entry = End_list(sk=sk, quantity=quantity, length=length, toolcode=catalog_code,description=description,eimage=image)
         db.session.add(add_entry)
         db.session.commit()
 
@@ -114,6 +118,7 @@ def dashboard():
         item = End_list.query.all()
 
         if item==[]:
+
 
             return render_template("dashboard.html", message='No Tools are present', item=item)
 
@@ -213,6 +218,8 @@ def exportfile():
              outcsv.writerow([x.srnuml,x.sk,x.quantity,x.length,x.toolcode,x.description.strip()])
 
         outfile.close()
+        read_file = pd.read_csv(f'./csv_files/{fname}.csv')
+        read_file.to_excel(f'./csv_files/{fname}.xlsx', index=None, header=True)
 
         return redirect(url_for("download"))
 
@@ -227,7 +234,7 @@ def download():
         print(app.config["UPLOAD_FOLDER"])
         if 'fname' in session:
             csvFileName = session['fname']
-        return send_from_directory(app.config['UPLOAD_FOLDER'], filename=f'{csvFileName}.csv', as_attachment=True, cache_timeout=0)
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename=f'{csvFileName}.xlsx', as_attachment=True, cache_timeout=0)
 
 # @app.route("/dashboard/<user_name>", methods=["GET", "POST"])
 # def dashboard(user_name):

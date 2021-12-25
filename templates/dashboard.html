@@ -8,6 +8,20 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+
+        .hide {
+                display: none;
+               }
+
+        .myDIV:hover + .hide {
+          display: block;
+
+        }
+
+
+    </style>
+
 </head>
 <body>
         <h1>Dashboard</h1>
@@ -21,6 +35,7 @@
            <td><b>Length</b></td>
            <td><b>ToolCode</b></td>
            <td><b>Description</b></td>
+           <td><b>Image</b></td>
 
            </tr>
            </thead>
@@ -31,13 +46,15 @@
             <tbody>
            {% for k in item %}
                     <tr>
-                    <td name="serial" value="{{k.srnuml}}">{{k.srnuml}}</td>
+                    <td name="serial" value="{{k.srnuml}}">{{loop.index}}</td>
 
                     <td>{{k.sk}}</td>
                     <td>{{k.quantity}}</td>
                     <td>{{k.length}}</td>
                     <td>{{k.toolcode}}</td>
                     <td>{{k.description}}</td>
+                    <td><div class="myDIV">Hover for Image</div>
+                        <div class="hide"><img src="{{k.eimage}}"></img></div></td>
                     <td><a href="/delete/{{k.srnuml}}">&nbspDelete</td>
                     <td><a href="/update/{{k.srnuml}}">&nbspUpdate</td>
                     </tr>

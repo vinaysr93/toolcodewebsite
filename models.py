@@ -16,7 +16,7 @@ class Standard(db.Model):
     height = db.Column('Height', db.Integer)
     code = db.Column('Code', db.String, unique=True)
     description = db.Column('Description', db.String)
-
+    simage=db.Column('Image',db.String)
 
 class User(db.Model):
     __table__name = "user"
@@ -33,3 +33,4 @@ class End_list(db.Model):
     length = db.Column('Length', db.Integer, nullable=False)
     toolcode = db.Column('ToolCode', db.String, nullable=False)
     description = db.Column('Description', db.String)
+    eimage = db.Column('Image', db.String)
