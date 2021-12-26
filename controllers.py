@@ -3,11 +3,12 @@ from flask import render_template, request, redirect
 from flask import current_app as app
 from models import Tool, Standard, User, End_list
 from database import db
+from price import get_price
 import requests
 import os,random
 import csv
 import uuid
-import pandas as pd
+
 
 numl=[]
 session= {}
@@ -75,7 +76,7 @@ def dashboard():
 
         else:
 
-            print(item)
+
 
             return render_template("dashboard.html",message='',item=item)
 
@@ -97,7 +98,14 @@ def dashboard():
         image=query_code.simage
         catalog_code = query_code.code
         description=query_code.description
-        add_entry = End_list(sk=sk, quantity=quantity, length=length, toolcode=catalog_code,description=description,eimage=image)
+
+
+        uprice=get_price(sk,catalog_code)
+        tprice=uprice*int(quantity)
+
+
+
+        add_entry = End_list(sk=sk, quantity=quantity, length=length, toolcode=catalog_code,description=description,eimage=image,unitprice=uprice,totalprice=tprice)
         db.session.add(add_entry)
         db.session.commit()
 
@@ -150,6 +158,8 @@ def dashboard():
         update_entry.length=length
         update_entry.toolcode=catalog_code
         update_entry.description=description
+        update_entry.unitprice=get_price(sk,catalog_code)
+        update_entry.totalprice=get_price(sk,catalog_code)*int(quantity)
         db.session.commit()
 
         item = End_list.query.all()

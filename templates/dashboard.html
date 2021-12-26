@@ -19,7 +19,6 @@
 
         }
 
-
     </style>
 
 </head>
@@ -36,6 +35,9 @@
            <td><b>ToolCode</b></td>
            <td><b>Description</b></td>
            <td><b>Image</b></td>
+           <td><b>Unit Price</b></td>
+           <td><b>Total Price</b></td>
+
 
            </tr>
            </thead>
@@ -53,8 +55,10 @@
                     <td>{{k.length}}</td>
                     <td>{{k.toolcode}}</td>
                     <td>{{k.description}}</td>
-                    <td><div class="myDIV">Hover for Image</div>
-                        <div class="hide"><img src="{{k.eimage}}"></img></div></td>
+                    <td><a href="{{k.eimage}}" onclick='window.open(this.href,"_blank","width=500,height=500"); return false;'>Image</a>
+                    </td>
+                    <td>{{k.unitprice}}</td>
+                    <td>{{k.totalprice}}</td>
                     <td><a href="/delete/{{k.srnuml}}">&nbspDelete</td>
                     <td><a href="/update/{{k.srnuml}}">&nbspUpdate</td>
                     </tr>

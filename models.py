@@ -34,3 +34,5 @@ class End_list(db.Model):
     toolcode = db.Column('ToolCode', db.String, nullable=False)
     description = db.Column('Description', db.String)
     eimage = db.Column('Image', db.String)
+    unitprice=db.Column('UnitPrice',db.Float)
+    totalprice=db.Column('TotalPrice',db.Float)
