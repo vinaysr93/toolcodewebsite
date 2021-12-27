@@ -1,8 +1,8 @@
-import pandas as pd
+from config import LocalDevelopmentConfig
 
 
 def get_price(sk, code):
-    df = pd.read_excel(r"./static/assets/tool_price.xlsx")
+
     if sk == "11" or sk==11:
         ask = "1B"
 
@@ -13,17 +13,18 @@ def get_price(sk, code):
     search_str = ask+ " " +code
     print(search_str)
 
-    price = df[df["CODE NO"] == search_str]["AIPL Selling"]
+    price = LocalDevelopmentConfig.DATA[LocalDevelopmentConfig.DATA["CODE NO"] == search_str]["AIPL Selling"]
     if price.empty:
 
-        search_str = sk + " " + code
-        alt_price = df[df["CODE NO"] == search_str]["AIPL Selling"]
+        nsearch_str = sk + " " + code
+        alt_price = LocalDevelopmentConfig.DATA[LocalDevelopmentConfig.DATA["CODE NO"] == nsearch_str]["AIPL Selling"]
 
         if alt_price.empty:
             price=0
             return price
         else:
-            return float(price)
+            return float(alt_price)
+
     else:
 
         return round(price,2)
