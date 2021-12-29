@@ -8,6 +8,7 @@ import requests
 import os,random
 import csv
 import uuid
+import pandas as pd
 
 
 numl=[]
@@ -217,15 +218,13 @@ def exportfile():
 
         export_list=End_list.query.all()
         print(export_list)
-
         fname = str(uuid.uuid4())
         session['fname'] = fname
-        outfile = open(f'./csv_files/{fname}.csv', 'w',newline='')
+        outfile = open(f'./csv_files/{fname}.csv', 'w', newline='')
         outcsv = csv.writer(outfile)
-        outcsv.writerow(["Sr Number","SK","Quantity","Length","ToolCode","Description"])
+        outcsv.writerow(["Sr Number", "SK", "Quantity", "Length", "ToolCode", "Description"])
         for x in export_list:
-
-             outcsv.writerow([x.srnuml,x.sk,x.quantity,x.length,x.toolcode,x.description.strip()])
+            outcsv.writerow([x.srnuml, x.sk, x.quantity, x.length, x.toolcode, x.description.strip()])
 
         outfile.close()
         read_file = pd.read_csv(f'./csv_files/{fname}.csv')
@@ -240,11 +239,15 @@ def download():
         return render_template("download.html")
 
     elif request.method=="POST":
-        print("Breaking here")
-        print(app.config["UPLOAD_FOLDER"])
+
+
         if 'fname' in session:
             csvFileName = session['fname']
         return send_from_directory(app.config['UPLOAD_FOLDER'], filename=f'{csvFileName}.xlsx', as_attachment=True, cache_timeout=0)
+
+
+
+
 
 # @app.route("/dashboard/<user_name>", methods=["GET", "POST"])
 # def dashboard(user_name):
